@@ -1,4 +1,4 @@
-![logo contempo](https://github.com/therealedsheenan/contempo/blob/master/contempo-auth.png)
+![logo contempo](https://github.com/therealedsheenan/contempo-auth/blob/master/contempo-auth.png)
 
 # contempo-auth
 This repo is about how to create an authentication on
