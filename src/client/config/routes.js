@@ -22,6 +22,14 @@ const routes = () => (
           System.import('../containers/Styleguide/StyleguideContainer')
         } />
       )} />
+
+    <Route strict exact path='/login' render={props => (
+      <AsyncRoute
+        props={props}
+        loadingPromise={
+          System.import('../containers/Login/LoginContainer')
+        } />
+    )} />
   </Root>
 )
 
