@@ -7,7 +7,7 @@ const Login = React.createClass({
   },
   render () {
     return (
-      <LoginComponent requestLogin={this.requestLogin}/>
+      <LoginComponent requestLogin={this.requestLogin} />
     )
   }
 })

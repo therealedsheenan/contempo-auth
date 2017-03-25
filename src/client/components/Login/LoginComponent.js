@@ -12,9 +12,13 @@ const Login = (props) => {
         <label htmlFor='password'>password: </label>
         <Field name='password' component='input' type='password' />
       </div>
-      <button type="submit">Submit</button>
+      <button type='submit'>Submit</button>
     </form>
   )
+}
+
+Login.propTypes = {
+  requestLogin: React.PropTypes.func
 }
 
 const LoginForm = reduxForm({
