@@ -8,7 +8,8 @@ const Root = React.createClass({
   render () {
     return (
       <main>
-        <Link to='/'>Home</Link> | <Link to='/style'>Styleguide</Link>
+        <Link to='/style'>Styleguide</Link> |
+        <Link to='/login'>Login</Link>
         {this.props.children}
       </main>
     )

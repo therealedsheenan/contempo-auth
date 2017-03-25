@@ -1,21 +1,24 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
-import thunk from 'redux-thunk'
+// import thunk from 'redux-thunk'
 import { routerReducer } from 'react-router-redux'
+import { createEpicMiddleware } from 'redux-observable'
+import { reducer as formReducer } from 'redux-form'
 
 // redux settings
-import greeting from '../redux/modules'
+import greetingReducer, { greetingEpic } from '../redux/modules/greeting'
 
-// let nodeEnv = 'development'
+const epicMiddleWare = createEpicMiddleware(greetingEpic)
 
-const store = createStore(
-  combineReducers({
-    greeting,
-    routing: routerReducer
-  }),
+const reducers = {
+  greetingReducer,
+  routing: routerReducer,
+  form: formReducer
+}
+
+export const store = createStore(
+  combineReducers(reducers),
   compose(
-    applyMiddleware(thunk),
+    applyMiddleware(epicMiddleWare),
     typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ? window.devToolsExtension() : (f) => f
   )
 )
-
-module.exports = { store }
