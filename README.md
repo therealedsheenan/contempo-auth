@@ -1,3 +1,5 @@
+![logo contempo](https://github.com/therealedsheenan/contempo/blob/master/contempo-auth.png)
+
 # contempo-auth
 This repo is about how to create an authentication on
 Single Page Applications specifically for React.
