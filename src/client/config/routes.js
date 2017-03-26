@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
 // react containers
 import Root from '../components/Root'
@@ -7,7 +7,7 @@ import AsyncRoute from '../components/AsyncRoute/AsyncRoute'
 
 const routes = () => (
   <Root>
-    <Route strict exact path='/' render={props => (
+    <PrivateRoute path='/home' component={props => (
       <AsyncRoute
         props={props}
         loadingPromise={
@@ -23,7 +23,7 @@ const routes = () => (
         } />
       )} />
 
-    <Route strict exact path='/login' render={props => (
+    <Route strict exact path='/' render={props => (
       <AsyncRoute
         props={props}
         loadingPromise={
@@ -31,6 +31,31 @@ const routes = () => (
         } />
     )} />
   </Root>
+)
+
+const fakeAuth = {
+  isAuthenticated: false,
+  authenticate (cb) {
+    this.isAuthenticated = true
+    setTimeout(cb, 100) // fake async
+  },
+  signout (cb) {
+    this.isAuthenticated = false
+    setTimeout(cb, 100)
+  }
+}
+
+const PrivateRoute = ({ component, ...rest }) => (
+  <Route {...rest} render={props => (
+    fakeAuth.isAuthenticated ? (
+      React.createElement(component, props)
+    ) : (
+      <Redirect to={{
+        pathname: '/',
+        state: { from: props.location }
+      }} />
+    )
+  )} />
 )
 
 export default routes
