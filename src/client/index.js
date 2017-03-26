@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './app.js'
 
 render(
-  <BrowserRouter>
+  <BrowserRouter auth={'test'}>
     <App />
   </BrowserRouter>, document.getElementById('app')
 )

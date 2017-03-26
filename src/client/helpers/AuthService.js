@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events'
-import { isTokenExpired } from './jwtHelper'
+import { isTokenExpired } from './jwt'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL } from './constants'

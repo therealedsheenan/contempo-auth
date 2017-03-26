@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
+import AuthService from '../helpers/AuthService'
 
 // react containers
 import Root from '../components/Root'
@@ -32,18 +33,6 @@ const routes = () => (
     )} />
   </Root>
 )
-
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate (cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100) // fake async
-  },
-  signout (cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100)
-  }
-}
 
 const PrivateRoute = ({ component, ...rest }) => (
   <Route {...rest} render={props => (
