@@ -1,16 +1,23 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 // import thunk from 'redux-thunk'
 import { routerReducer } from 'react-router-redux'
-import { createEpicMiddleware } from 'redux-observable'
+import { createEpicMiddleware, combineEpics } from 'redux-observable'
 import { reducer as formReducer } from 'redux-form'
 
 // redux settings
 import greetingReducer, { greetingEpic } from '../redux/modules/greeting'
+import authReducer, { authEpic } from '../redux/modules/auth'
 
-const epicMiddleWare = createEpicMiddleware(greetingEpic)
+const combinedEpics = combineEpics(
+  greetingEpic,
+  authEpic
+)
+
+const epicMiddleWare = createEpicMiddleware(combinedEpics)
 
 const reducers = {
   greetingReducer,
+  authReducer,
   routing: routerReducer,
   form: formReducer
 }

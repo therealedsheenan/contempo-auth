@@ -1,13 +1,10 @@
-import { EventEmitter } from 'events'
 import { isTokenExpired } from './jwt'
 import jwtDecode from 'jwt-decode'
 
 import { API_URL } from './constants'
 
-export default class AuthService extends EventEmitter {
+export default class AuthService {
   constructor () {
-    super()
-
     // binds login functions to keep this context
     this.login = this.login.bind(this)
   }

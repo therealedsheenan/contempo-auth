@@ -1,19 +1,26 @@
 import React from 'react'
-import LoginComponent from '../../components/Login/LoginComponent'
-import AuthService from '../../helpers/AuthService'
+import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-const Login = React.createClass({
+import LoginComponent from '../../components/Login/LoginComponent'
+import { requestLogin } from '../../redux/modules/auth'
+
+const LoginContainer = React.createClass({
+  propTypes: {
+    requestLogin: React.PropTypes.func,
+    location: React.PropTypes.object
+  },
   getInitialState () {
     return {
       redirectToReferrer: false
     }
   },
-  requestLogin () {
-    return false
+  submit (values) {
+    if (values.username && values.password) {
+      this.props.requestLogin(values.username, values.password)
+    }
   },
   render () {
-    console.log(this.props)
     const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { redirectToReferrer } = this.state
 
@@ -24,9 +31,28 @@ const Login = React.createClass({
     }
 
     return (
-      <LoginComponent requestLogin={this.requestLogin} />
+      <LoginComponent onSubmit={this.submit} />
     )
   }
 })
 
-export default Login
+const mapStateToProps = ({authReducer}) => {
+  // let { fetching, greeting } = authReducer
+
+  return {
+    // fetching: fetching,
+    // greeting: greeting
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    requestLogin: (username, password) => dispatch(requestLogin(username, password))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginContainer)
+

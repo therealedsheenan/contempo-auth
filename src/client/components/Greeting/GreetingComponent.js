@@ -7,7 +7,6 @@ import {
 const GreetingComponent = (props) => {
   return (
     <div className='Greeting'>
-      <button />
       <Title>Good {props.message}!</Title>
       <SubTitle>Welcome to contempo-auth!</SubTitle>
     </div>

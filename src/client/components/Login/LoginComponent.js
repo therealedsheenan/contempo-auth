@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form'
 
 const Login = (props) => {
   return (
-    <form onSubmit={props.requestLogin}>
+    <form onSubmit={props.handleSubmit}>
       <div>
         <label htmlFor='userName'>Username: </label>
         <Field name='username' component='input' type='text' />

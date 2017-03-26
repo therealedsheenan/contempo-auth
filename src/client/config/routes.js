@@ -6,6 +6,8 @@ import AuthService from '../helpers/AuthService'
 import Root from '../components/Root'
 import AsyncRoute from '../components/AsyncRoute/AsyncRoute'
 
+const auth = new AuthService()
+
 const routes = () => (
   <Root>
     <PrivateRoute path='/home' component={props => (
@@ -24,7 +26,7 @@ const routes = () => (
         } />
       )} />
 
-    <Route strict exact path='/' render={props => (
+    <Route strict auth={auth} exact path='/' render={props => (
       <AsyncRoute
         props={props}
         loadingPromise={
@@ -34,17 +36,23 @@ const routes = () => (
   </Root>
 )
 
-const PrivateRoute = ({ component, ...rest }) => (
-  <Route {...rest} render={props => (
-    fakeAuth.isAuthenticated ? (
-      React.createElement(component, props)
-    ) : (
-      <Redirect to={{
-        pathname: '/',
-        state: { from: props.location }
-      }} />
-    )
-  )} />
-)
+const PrivateRoute = ({ component, ...rest }) => {
+  return (
+    <Route {...rest} render={props => {
+      if (auth.isAuthenticated()) {
+        return (
+          React.createElement(component, props)
+        )
+      } else {
+        return (
+          <Redirect to={{
+            pathname: '/',
+            state: {from: props.location}
+          }} />
+        )
+      }
+    }} />
+  )
+}
 
 export default routes
