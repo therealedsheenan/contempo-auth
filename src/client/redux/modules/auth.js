@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
-import AuthService from '../../helpers/AuthService'
+import { login } from '../../helpers/Auth'
+import { ajax } from 'rxjs/observable/dom/ajax'
 
-const auth = new AuthService()
 
 const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST'
 const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS'
@@ -31,20 +31,33 @@ export const requestLoginSuccess = (payload) => {
   }
 }
 
-const requestLoginError = () => Observable.of({
-  type: LOGIN_USER_FAILURE,
-  error: 'Loading Error.'
-})
+const requestLoginError = (message) => {
+  return {
+    type: LOGIN_USER_FAILURE,
+    error: message
+  }
+}
 
-export const authEpic = (action$, username, password) => {
+export const authEpic = (action$) => {
   return (
     action$.ofType(LOGIN_USER_REQUEST)
       .mergeMap(action => {
-        return (
-          auth.login(action.username, action.password)
-            .map(response => requestLoginSuccess(response))
-            .catch(requestLoginError)
-        )
+        login(action.username, action.password)
+          .map(response => {
+            console.log(response)
+          })
+        // Observable.from(login(action.username, action.password))
+        //   .map((response) => {
+        //     if (!response.token) {
+        //       return (
+        //         Observable.of({
+        //           type: LOGIN_USER_FAILURE,
+        //           error: response.message
+        //         })
+        //       )
+        //     }
+        //     return requestLoginSuccess(response)
+        //   })
       })
   )
 }
@@ -75,7 +88,7 @@ const authReducer = (state = initialState, action) => {
         username: null,
         isAuthenticated: false,
         isAuthenticating: false,
-        error: 'error',
+        error: action.error,
         status: 'failed'
       }
 

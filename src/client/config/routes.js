@@ -37,6 +37,7 @@ const routes = () => (
 )
 
 const PrivateRoute = ({ component, ...rest }) => {
+  console.log(...rest)
   return (
     <Route {...rest} render={props => {
       if (auth.isAuthenticated()) {
