@@ -3,7 +3,6 @@ import { Observable } from 'rxjs'
 import { API_URL } from '../../helpers/constants'
 import { ajax } from 'rxjs/observable/dom/ajax'
 
-
 const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST'
 const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS'
 const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE'
@@ -43,6 +42,8 @@ const requestLoginError = (message) => {
 const finishAuthentication = (token) => {
   return localStorage.setItem('token', token)
 }
+
+export const getToken = () => localStorage.getItem('token')
 
 export const authEpic = (action$) => {
   return (
@@ -90,7 +91,6 @@ const authReducer = (state = initialState, action) => {
 
     case LOGIN_USER_SUCCESS:
       return {
-        ...state,
         username: action.username,
         isAuthenticated: true,
         isAuthenticating: false,

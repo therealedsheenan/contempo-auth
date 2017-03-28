@@ -1,7 +1,12 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { requestGreeting } from '../../redux/modules/greeting'
+import jwtDecode from 'jwt-decode'
 
+// redux
+import { requestGreeting } from '../../redux/modules/greeting'
+import { getToken, fetchMessage } from '../../redux/modules/auth'
+
+// components
 import GreetingComponent from '../../components/Greeting/GreetingComponent'
 
 // base css
@@ -18,6 +23,8 @@ const HomeContainer = React.createClass({
   componentDidMount () {
     // TODO check if user is authenticated
     this.props.requestGreeting()
+  },
+  componentWillMount () {
   },
   render () {
     return (
@@ -37,7 +44,8 @@ const mapStateToProps = ({greetingReducer}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    requestGreeting: () => dispatch(requestGreeting())
+    requestGreeting: () => dispatch(requestGreeting()),
+    requestLogin: () => dispatch(getToken())
   }
 }
 

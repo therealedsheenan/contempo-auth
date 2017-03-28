@@ -38,9 +38,10 @@ const routes = () => (
 )
 
 const PrivateRoute = (newProps) => {
-  console.log(newProps.authentication)
+
   return (
-    <Route exact path={newProps.path} render={props => {
+    <Route path={newProps.path} render={props => {
+      console.log(newProps.authentication)
       if (newProps.authentication.isAuthenticated) {
         return (
           React.createElement(newProps.component, props)
@@ -57,13 +58,13 @@ const PrivateRoute = (newProps) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  const auth = state.authReducer
+const mapStateToProps = ({authReducer}) => {
+  console.log(authReducer)
   return {
     authentication: {
-      isAuthenticating: auth.isAuthenticating,
-      isAuthenticated: auth.isAuthenticated,
-      status: auth.status
+      isAuthenticating: authReducer.isAuthenticating,
+      isAuthenticated: authReducer.isAuthenticated,
+      status: authReducer.status
     }
   }
 }
