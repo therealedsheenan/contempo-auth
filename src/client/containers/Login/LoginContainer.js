@@ -18,6 +18,7 @@ const LoginContainer = React.createClass({
   submit (values) {
     if (values.username && values.password) {
       this.props.requestLogin(values.username, values.password)
+      this.setState({ redirectToReferrer: true })
     }
   },
   render () {
@@ -36,12 +37,14 @@ const LoginContainer = React.createClass({
   }
 })
 
-const mapStateToProps = ({authReducer}) => {
-  // let { fetching, greeting } = authReducer
-
+const mapStateToProps = (state) => {
+  const auth = state.authReducer
   return {
-    // fetching: fetching,
-    // greeting: greeting
+    authentication: {
+      isAuthenticating: auth.isAuthenticating,
+      isAuthenticated: auth.isAuthenticated,
+      status: auth.status
+    }
   }
 }
 

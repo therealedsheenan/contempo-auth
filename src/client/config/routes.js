@@ -11,7 +11,7 @@ const auth = new AuthService()
 
 const routes = () => (
   <Root>
-    <LimitedAccessRoute path='/home' component={props => (
+    <LimitedAccessRoute exact path='/home' component={props => (
       <AsyncRoute
         props={props}
         loadingPromise={
@@ -37,21 +37,18 @@ const routes = () => (
   </Root>
 )
 
-const PrivateRoute = (props, { component, ...rest }) => {
+const PrivateRoute = (newProps) => {
   return (
-    <Route {...rest} render={props => {
-      let { isAuthenticated, isAuthenticating } = props
-      console.log(isAuthenticated)
-      if (isAuthenticated) {
+    <Route exact path={newProps.path} render={props => {
+      if (newProps.authentication.isAuthenticated) {
         return (
-          React.createElement(component, props)
+          React.createElement(newProps.component, props)
         )
       } else {
-        console.log('no')
         return (
           <Redirect to={{
             pathname: '/',
-            state: {from: props.location}
+            state: {from: props.location.pathname}
           }} />
         )
       }
@@ -60,13 +57,16 @@ const PrivateRoute = (props, { component, ...rest }) => {
 }
 
 const mapStateToProps = (state) => {
+  const auth = state.authReducer
   return {
-    isAuthenticating: state.authReducer.isAuthenticating,
-    isAuthenticated: state.authReducer.isAuthenticated,
-    status: state.authReducer.status
+    authentication: {
+      isAuthenticating: auth.isAuthenticating,
+      isAuthenticated: auth.isAuthenticated,
+      status: auth.status
+    }
   }
 }
 
-let LimitedAccessRoute = connect(mapStateToProps)(PrivateRoute))
+let LimitedAccessRoute = connect(mapStateToProps)(PrivateRoute)
 
 export default routes
