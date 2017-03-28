@@ -38,6 +38,7 @@ const routes = () => (
 )
 
 const PrivateRoute = (newProps) => {
+  console.log(newProps.authentication)
   return (
     <Route exact path={newProps.path} render={props => {
       if (newProps.authentication.isAuthenticated) {

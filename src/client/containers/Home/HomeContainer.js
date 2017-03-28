@@ -16,6 +16,7 @@ const HomeContainer = React.createClass({
     ])
   },
   componentDidMount () {
+    // check if user is authenticated
     this.props.requestGreeting()
   },
   render () {
