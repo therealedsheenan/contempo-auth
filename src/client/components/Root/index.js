@@ -9,7 +9,7 @@ const Root = React.createClass({
     return (
       <main>
         <Link to='/style'>Styleguide</Link> |
-        <Link to='/login'>Login</Link>
+        <Link to='/home'>Home</Link>
         {this.props.children}
       </main>
     )

@@ -1,4 +1,4 @@
-import {Observable} from 'rxjs'
+import { Observable } from 'rxjs'
 import { ajax } from 'rxjs/observable/dom/ajax'
 
 const GET_GREETING = 'GREETING_REQUEST'

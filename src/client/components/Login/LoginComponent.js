@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Field, reduxForm } from 'redux-form'
 
 const Login = (props) => {
   return (
-    <form onSubmit={props.requestLogin}>
+    <form onSubmit={props.handleSubmit}>
       <div>
         <label htmlFor='userName'>Username: </label>
         <Field name='username' component='input' type='text' />
@@ -18,7 +18,8 @@ const Login = (props) => {
 }
 
 Login.propTypes = {
-  requestLogin: React.PropTypes.func
+  requestLogin: PropTypes.func,
+  handleSubmit: PropTypes.func.isRequired
 }
 
 const LoginForm = reduxForm({
