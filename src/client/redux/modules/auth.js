@@ -1,7 +1,4 @@
-import { Observable } from 'rxjs'
-// import { login } from '../../helpers/Auth'
 import { API_URL } from '../../helpers/constants'
-import { ajax } from 'rxjs/observable/dom/ajax'
 
 const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST'
 const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS'

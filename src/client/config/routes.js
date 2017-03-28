@@ -38,7 +38,6 @@ const routes = () => (
 )
 
 const PrivateRoute = (newProps) => {
-
   return (
     <Route path={newProps.path} render={props => {
       console.log(newProps.authentication)
@@ -48,10 +47,7 @@ const PrivateRoute = (newProps) => {
         )
       } else {
         return (
-          <Redirect to={{
-            pathname: '/',
-            state: {from: props.location.pathname}
-          }} />
+          <Redirect to={{ pathname: '/' }} />
         )
       }
     }} />

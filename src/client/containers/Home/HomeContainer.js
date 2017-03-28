@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import jwtDecode from 'jwt-decode'
 
 // redux
 import { requestGreeting } from '../../redux/modules/greeting'
-import { getToken, fetchMessage } from '../../redux/modules/auth'
+import { getToken } from '../../redux/modules/auth'
 
 // components
 import GreetingComponent from '../../components/Greeting/GreetingComponent'
