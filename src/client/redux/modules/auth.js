@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs'
-import { login } from '../../helpers/Auth'
+// import { login } from '../../helpers/Auth'
+import { API_URL } from '../../helpers/constants'
 import { ajax } from 'rxjs/observable/dom/ajax'
 
 
@@ -38,26 +39,40 @@ const requestLoginError = (message) => {
   }
 }
 
+// set token on local storage
+const finishAuthentication = (token) => {
+  return localStorage.setItem('token', token)
+}
+
 export const authEpic = (action$) => {
   return (
     action$.ofType(LOGIN_USER_REQUEST)
       .mergeMap(action => {
-        login(action.username, action.password)
-          .map(response => {
-            console.log(response)
+        let user = action.username
+        let password = action.password
+        return fetch(
+          `${API_URL}/${'users/authenticate'}`,
+          {
+            method: 'POST',
+            body: JSON.stringify({user, password}),
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          }
+        )
+        .then(response => {
+          return response.json()
+          .then(res => {
+            if (!res.token) {
+              return requestLoginError('Credentials are wrong')
+            }
+            finishAuthentication(res.token)
+            return requestLoginSuccess()
           })
-        // Observable.from(login(action.username, action.password))
-        //   .map((response) => {
-        //     if (!response.token) {
-        //       return (
-        //         Observable.of({
-        //           type: LOGIN_USER_FAILURE,
-        //           error: response.message
-        //         })
-        //       )
-        //     }
-        //     return requestLoginSuccess(response)
-        //   })
+          .catch(error => requestLoginError(error))
+        })
+        .catch(error => requestLoginError(error.message))
       })
   )
 }

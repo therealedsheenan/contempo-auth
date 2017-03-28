@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import AuthService from '../helpers/AuthService'
+import { connect } from 'react-redux'
 
 // react containers
 import Root from '../components/Root'
@@ -10,7 +11,7 @@ const auth = new AuthService()
 
 const routes = () => (
   <Root>
-    <PrivateRoute path='/home' component={props => (
+    <LimitedAccessRoute path='/home' component={props => (
       <AsyncRoute
         props={props}
         loadingPromise={
@@ -36,15 +37,17 @@ const routes = () => (
   </Root>
 )
 
-const PrivateRoute = ({ component, ...rest }) => {
-  console.log(...rest)
+const PrivateRoute = (props, { component, ...rest }) => {
   return (
     <Route {...rest} render={props => {
-      if (auth.isAuthenticated()) {
+      let { isAuthenticated, isAuthenticating } = props
+      console.log(isAuthenticated)
+      if (isAuthenticated) {
         return (
           React.createElement(component, props)
         )
       } else {
+        console.log('no')
         return (
           <Redirect to={{
             pathname: '/',
@@ -55,5 +58,15 @@ const PrivateRoute = ({ component, ...rest }) => {
     }} />
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticating: state.authReducer.isAuthenticating,
+    isAuthenticated: state.authReducer.isAuthenticated,
+    status: state.authReducer.status
+  }
+}
+
+let LimitedAccessRoute = connect(mapStateToProps)(PrivateRoute))
 
 export default routes

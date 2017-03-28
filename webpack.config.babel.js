@@ -40,7 +40,13 @@ module.exports = env => {
       contentBase: PATHS.output,
       inline: true,
       port: 8000,
-      historyApiFallback: true
+      historyApiFallback: true,
+      proxy: {
+        context: '/api',
+        options: {
+          target: 'http://localhost:3001'
+        }
+      }
     },
     module: {
       loaders: [
