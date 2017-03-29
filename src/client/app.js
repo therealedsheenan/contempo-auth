@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import jwtDecode from 'jwt-decode'
 
-import { requestLoginSuccess, getToken } from './redux/modules/auth'
+import { requestLoginSuccess, getToken } from './redux/authentication/actions'
 
 import routes from './config/routes'
 import { store } from './config/store'

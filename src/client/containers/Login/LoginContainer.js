@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import LoginComponent from '../../components/Login/LoginComponent'
-import { requestLogin } from '../../redux/modules/auth'
+import { requestLogin } from '../../redux/authentication/actions'
 
 const LoginContainer = React.createClass({
   propTypes: {
