@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 
+import NavComponent from '../../components/Navigation/NavComponent'
 import { getToken } from '../../redux/authentication/utils'
 import { requestLoginSuccess, requestLogout } from '../../redux/authentication/actions'
 
@@ -31,9 +31,7 @@ const Root = React.createClass({
   render () {
     return (
       <main>
-        <Link to='/home'>Home</Link> |
-        <Link to='/style'>Styleguide</Link>
-        {this.props.authentication.isAuthenticated && <button onClick={this.logout}>Sign out</button> }
+        <NavComponent authentication={this.props.authentication} logout={this.logout} />
         {this.props.children}
       </main>
     )
