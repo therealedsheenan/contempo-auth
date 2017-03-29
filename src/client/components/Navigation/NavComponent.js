@@ -26,7 +26,8 @@ const NavComponent = (props) => {
 }
 
 NavComponent.propTypes = {
-  authentication: PropTypes.object
+  authentication: PropTypes.object,
+  logout: PropTypes.func
 }
 
 export default NavComponent
