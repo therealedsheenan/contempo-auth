@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
@@ -7,12 +7,18 @@ import { requestLogin } from '../../redux/modules/auth'
 
 const LoginContainer = React.createClass({
   propTypes: {
-    requestLogin: React.PropTypes.func,
-    location: React.PropTypes.object
+    requestLogin: PropTypes.func,
+    location: PropTypes.object,
+    authentication: PropTypes.object
   },
   getInitialState () {
     return {
       redirectToReferrer: false
+    }
+  },
+  componentDidMount () {
+    if (this.props.authentication.isAuthenticated) {
+      this.setState({ redirectToReferrer: true })
     }
   },
   submit (values) {
@@ -22,12 +28,11 @@ const LoginContainer = React.createClass({
     }
   },
   render () {
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { redirectToReferrer } = this.state
 
     if (redirectToReferrer) {
       return (
-        <Redirect to={from} />
+        <Redirect to={'/home'} />
       )
     }
 

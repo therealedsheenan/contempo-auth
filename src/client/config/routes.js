@@ -1,13 +1,10 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import AuthService from '../helpers/AuthService'
 import { connect } from 'react-redux'
 
 // react containers
 import Root from '../components/Root'
 import AsyncRoute from '../components/AsyncRoute/AsyncRoute'
-
-const auth = new AuthService()
 
 const routes = () => (
   <Root>
@@ -27,7 +24,7 @@ const routes = () => (
         } />
       )} />
 
-    <Route strict auth={auth} exact path='/' render={props => (
+    <Route strict exact path='/' render={props => (
       <AsyncRoute
         props={props}
         loadingPromise={
