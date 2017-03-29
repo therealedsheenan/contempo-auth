@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom'
 import PrivateRoute from '../common/PrivateRoute'
 
 // react containers
-import Root from '../components/Root'
+import Root from '../containers/Root/RootContainer'
 import AsyncRoute from '../common/AsyncRoute'
 
 const routes = () => (

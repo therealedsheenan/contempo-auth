@@ -38,8 +38,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: false,
-        isAuthenticating: false,
-        status: 'success'
+        isAuthenticating: false
       }
 
     default:

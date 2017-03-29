@@ -1,5 +1,6 @@
 import * as type from './types'
 import { API_URL } from '../../helpers/constants'
+import { removeToken } from './utils'
 
 export const requestLogin = (username, password) => {
   return {
@@ -23,12 +24,18 @@ const requestLoginError = (message) => {
   }
 }
 
+export const requestLogout = () => {
+  // remove the token from the local storage first
+  removeToken()
+  return {
+    type: type.LOGOUT_USER
+  }
+}
+
 // set token on local storage
 const finishAuthentication = (token) => {
   return localStorage.setItem('token', token)
 }
-
-export const getToken = () => localStorage.getItem('token')
 
 export const authEpic = (action$) => {
   return (

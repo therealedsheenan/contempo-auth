@@ -42,13 +42,11 @@ const LoginContainer = React.createClass({
   }
 })
 
-const mapStateToProps = (state) => {
-  const auth = state.authReducer
+const mapStateToProps = ({ authReducer }) => {
   return {
     authentication: {
-      isAuthenticating: auth.isAuthenticating,
-      isAuthenticated: auth.isAuthenticated,
-      status: auth.status
+      isAuthenticating: authReducer.isAuthenticating,
+      isAuthenticated: authReducer.isAuthenticated
     }
   }
 }

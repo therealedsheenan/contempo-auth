@@ -8,9 +8,6 @@ import { getToken } from '../../redux/authentication/actions'
 // components
 import GreetingComponent from '../../components/Greeting/GreetingComponent'
 
-// base css
-import 'styles/base.scss'
-
 const HomeContainer = React.createClass({
   propTypes: {
     requestGreeting: PropTypes.func.isRequired,
@@ -33,11 +30,9 @@ const HomeContainer = React.createClass({
 })
 
 const mapStateToProps = ({greetingReducer}) => {
-  let { fetching, greeting } = greetingReducer
-
   return {
-    fetching: fetching,
-    greeting: greeting
+    fetching: greetingReducer.fetching,
+    greeting: greetingReducer.greeting
   }
 }
 
