@@ -2,14 +2,11 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 // redux
-import { requestGreeting } from '../../redux/modules/greeting'
-import { getToken } from '../../redux/modules/auth'
+import { requestGreeting } from '../../redux/greeting/actions'
+import { getToken } from '../../redux/authentication/actions'
 
 // components
 import GreetingComponent from '../../components/Greeting/GreetingComponent'
-
-// base css
-import 'styles/base.scss'
 
 const HomeContainer = React.createClass({
   propTypes: {
@@ -33,11 +30,9 @@ const HomeContainer = React.createClass({
 })
 
 const mapStateToProps = ({greetingReducer}) => {
-  let { fetching, greeting } = greetingReducer
-
   return {
-    fetching: fetching,
-    greeting: greeting
+    fetching: greetingReducer.fetching,
+    greeting: greetingReducer.greeting
   }
 }
 

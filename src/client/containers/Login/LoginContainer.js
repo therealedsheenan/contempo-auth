@@ -1,18 +1,24 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import LoginComponent from '../../components/Login/LoginComponent'
-import { requestLogin } from '../../redux/modules/auth'
+import { requestLogin } from '../../redux/authentication/actions'
 
 const LoginContainer = React.createClass({
   propTypes: {
-    requestLogin: React.PropTypes.func,
-    location: React.PropTypes.object
+    requestLogin: PropTypes.func,
+    location: PropTypes.object,
+    authentication: PropTypes.object
   },
   getInitialState () {
     return {
       redirectToReferrer: false
+    }
+  },
+  componentDidMount () {
+    if (this.props.authentication.isAuthenticated) {
+      this.setState({ redirectToReferrer: true })
     }
   },
   submit (values) {
@@ -22,12 +28,11 @@ const LoginContainer = React.createClass({
     }
   },
   render () {
-    const { from } = this.props.location.state || { from: { pathname: '/' } }
     const { redirectToReferrer } = this.state
 
     if (redirectToReferrer) {
       return (
-        <Redirect to={from} />
+        <Redirect to={'/home'} />
       )
     }
 
@@ -37,13 +42,11 @@ const LoginContainer = React.createClass({
   }
 })
 
-const mapStateToProps = (state) => {
-  const auth = state.authReducer
+const mapStateToProps = ({ authReducer }) => {
   return {
     authentication: {
-      isAuthenticating: auth.isAuthenticating,
-      isAuthenticated: auth.isAuthenticated,
-      status: auth.status
+      isAuthenticating: authReducer.isAuthenticating,
+      isAuthenticated: authReducer.isAuthenticated
     }
   }
 }
