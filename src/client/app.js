@@ -1,5 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+import jwtDecode from 'jwt-decode'
+
 import { requestLoginSuccess, getToken } from './redux/modules/auth'
 
 import routes from './config/routes'
@@ -9,6 +11,7 @@ if (global) global.System = { import () {} }
 
 // fetch token upon first render of store
 if (getToken()) {
+  console.log(jwtDecode(getToken()))
   store.dispatch(requestLoginSuccess(getToken))
 }
 

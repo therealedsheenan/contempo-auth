@@ -80,7 +80,6 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_USER_REQUEST:
       return {
         ...state,
-        username: null,
         isAuthenticated: false,
         isAuthenticating: true,
         status: null
@@ -88,7 +87,6 @@ const authReducer = (state = initialState, action) => {
 
     case LOGIN_USER_SUCCESS:
       return {
-        username: action.username,
         isAuthenticated: true,
         isAuthenticating: false,
         status: 'success'
@@ -97,7 +95,6 @@ const authReducer = (state = initialState, action) => {
     case LOGIN_USER_FAILURE:
       return {
         ...state,
-        username: null,
         isAuthenticated: false,
         isAuthenticating: false,
         error: action.error,
@@ -107,7 +104,6 @@ const authReducer = (state = initialState, action) => {
     case LOGOUT_USER:
       return {
         ...state,
-        username: null,
         isAuthenticated: false,
         isAuthenticating: false,
         status: 'success'
