@@ -9,7 +9,7 @@ The prerequisites are the following:
 
 1.) Mongo Database
 
-2.) contempo-node-api [contempo-node-api](https://github.com/therealedsheenan/contempo-node-api)
+2.) [contempo-node-api](https://github.com/therealedsheenan/contempo-node-api)
 
 Make sure you have mongo database in your system.
 Setup the API by following the instruction from the link provided.
