@@ -41,15 +41,14 @@ export const authEpic = (action$) => {
   return (
     action$.ofType(type.LOGIN_USER_REQUEST)
       .mergeMap(action => {
-        let user = action.username
+        let username = action.username
         let password = action.password
         return fetch(
-          `${API_URL}/${'users/authenticate'}`,
+          `${API_URL}/${'user/signin'}`,
           {
             method: 'POST',
-            body: JSON.stringify({user, password}),
+            body: JSON.stringify({username, password}),
             headers: {
-              'Accept': 'application/json',
               'Content-Type': 'application/json'
             }
           }
