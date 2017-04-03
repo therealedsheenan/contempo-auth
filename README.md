@@ -4,6 +4,16 @@
 This repo is about how to create an authentication using JWT on
 Single Page Applications specifically for React.
 
+## Requirements
+The prerequisites are the following:
+
+1.) Mongo Database
+
+2.) contempo-node-api [contempo-node-api](https://github.com/therealedsheenan/contempo-node-api)
+
+Make sure you have mongo database in your system.
+Setup the API by following the instruction from the link provided.
+
 ### Under the hood
 With the recent react-router v4, rendering of restricted routes are slightly changed.
 
