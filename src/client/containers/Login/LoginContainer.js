@@ -31,7 +31,11 @@ const LoginContainer = React.createClass({
     }
 
     return (
-      <LoginComponent onSubmit={this.submit} />
+      <div>
+        <LoginComponent
+          onSubmit={this.submit}
+          loginError={this.props.authentication.error} />
+      </div>
     )
   }
 })
@@ -40,7 +44,8 @@ const mapStateToProps = ({ authReducer }) => {
   return {
     authentication: {
       isAuthenticating: authReducer.isAuthenticating,
-      isAuthenticated: authReducer.isAuthenticated
+      isAuthenticated: authReducer.isAuthenticated,
+      error: authReducer.error
     }
   }
 }

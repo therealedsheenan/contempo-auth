@@ -30,7 +30,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: false,
         isAuthenticating: false,
-        error: action.error,
+        error: 'Invalid credentials',
         status: 'failed'
       }
 

@@ -1,16 +1,15 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { Button, Form, FormGroup, Label, Container, Row, Col, Alert } from 'reactstrap'
+import { Button, Form, FormGroup, Label, Container, Row, Col } from 'reactstrap'
 
-const Login = (props) => {
-  console.log(props)
+const Signup = (props) => {
   return (
     <Container>
       <Row>
         <Col sm={{ size: 6, push: 2, pull: 2, offset: 1 }}>
           <Form onSubmit={props.handleSubmit}>
             <FormGroup>
-              <Label htmlFor='userName'>Username: </Label>
+              <Label htmlFor='userName'>Username or Email: </Label>
               <Field name='username' component='input' type='text' />
             </FormGroup>
             <FormGroup>
@@ -21,19 +20,16 @@ const Login = (props) => {
           </Form>
         </Col>
       </Row>
-      {props.loginError && <Alert color='danger'>{props.loginError}</Alert>}
     </Container>
   )
 }
 
-Login.propTypes = {
-  requestLogin: PropTypes.func,
-  handleSubmit: PropTypes.func.isRequired,
-  loginError: PropTypes.string
+Signup.propTypes = {
+  handleSubmit: PropTypes.func
 }
 
-const LoginForm = reduxForm({
-  form: 'login'
-})(Login)
+const SignupForm = reduxForm({
+  form: 'signup'
+})(Signup)
 
-export default LoginForm
+export default SignupForm

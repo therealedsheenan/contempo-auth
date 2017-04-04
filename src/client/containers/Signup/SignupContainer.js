@@ -1,10 +1,13 @@
 import React from 'react'
-
+import Signup from '../../components/Signup/SignupComponent'
 
 const SignupContainer = React.createClass({
+  handleSubmit () {
+
+  },
   render () {
     return (
-      <div>this is a test</div>
+      <Signup handleSubmit={this.handleSubmit} />
     )
   }
 })

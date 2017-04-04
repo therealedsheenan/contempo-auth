@@ -62,7 +62,9 @@ export const authEpic = (action$) => {
               finishAuthentication(res.token)
               return requestLoginSuccess()
             })
-            .catch(error => requestLoginError(error))
+            .catch((error) => {
+              return requestLoginError(error)
+            })
         })
         .catch(error => requestLoginError(error.message))
       })
