@@ -20,11 +20,11 @@ const Root = React.createClass({
     authentication: PropTypes.object
   },
   componentDidMount () {
-    socket.on('server event', function (data) {
-      console.log('test')
-      console.log(data)
-      socket.emit('client event', { socket: 'io' })
-    })
+    // socket.on('server event', function (data) {
+    //   console.log('test')
+    //   console.log(data)
+    //   socket.emit('client event', { message: '' })
+    // })
     if (getToken()) {
       this.props.requestLoginSuccess(getToken())
     }

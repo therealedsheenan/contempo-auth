@@ -11,11 +11,6 @@ const LoginContainer = React.createClass({
     location: PropTypes.object,
     authentication: PropTypes.object
   },
-  getInitialState () {
-    return {
-      redirectToReferrer: false
-    }
-  },
   componentDidMount () {
     if (this.props.authentication.isAuthenticated) {
       this.setState({ redirectToReferrer: true })
@@ -24,13 +19,11 @@ const LoginContainer = React.createClass({
   submit (values) {
     if (values.username && values.password) {
       this.props.requestLogin(values.username, values.password)
-      this.setState({ redirectToReferrer: true })
     }
   },
   render () {
-    const { redirectToReferrer } = this.state
 
-    if (redirectToReferrer) {
+    if (this.props.authentication.isAuthenticated) {
       return (
         <Redirect to={'/home'} />
       )
