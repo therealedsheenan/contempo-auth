@@ -11,9 +11,13 @@ import { greetingEpic } from '../redux/greeting/actions'
 import authReducer from '../redux/authentication/reducer'
 import { authEpic } from '../redux/authentication/actions'
 
+import usersReducer from '../redux/users/reducer'
+import { usersEpic } from '../redux/users/actions'
+
 const combinedEpics = combineEpics(
   greetingEpic,
-  authEpic
+  authEpic,
+  usersEpic
 )
 
 const epicMiddleWare = createEpicMiddleware(combinedEpics)
@@ -21,6 +25,7 @@ const epicMiddleWare = createEpicMiddleware(combinedEpics)
 const reducers = {
   greetingReducer,
   authReducer,
+  usersReducer,
   routing: routerReducer,
   form: formReducer
 }

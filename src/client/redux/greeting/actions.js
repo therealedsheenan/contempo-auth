@@ -2,6 +2,7 @@ import * as type from './types'
 
 import { Observable } from 'rxjs'
 import { ajax } from 'rxjs/observable/dom/ajax'
+import { API_URL } from '../../helpers/constants'
 
 export const requestGreeting = () => {
   return {

@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:3001')
 
 import LoginComponent from '../../components/Login/LoginComponent'
 import { requestLogin } from '../../redux/authentication/actions'
@@ -11,18 +14,16 @@ const LoginContainer = React.createClass({
     location: PropTypes.object,
     authentication: PropTypes.object
   },
-  componentDidMount () {
-    if (this.props.authentication.isAuthenticated) {
-      this.setState({ redirectToReferrer: true })
-    }
-  },
   submit (values) {
     if (values.username && values.password) {
       this.props.requestLogin(values.username, values.password)
+      socket.emit('login', {
+        username: values.username,
+        password: values.password
+      })
     }
   },
   render () {
-
     if (this.props.authentication.isAuthenticated) {
       return (
         <Redirect to={'/home'} />
