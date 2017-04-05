@@ -33,6 +33,15 @@ const routes = () => (
           System.import('../containers/Login/LoginContainer')
         } />
     )} />
+
+    <Route strict exact path='/signup' render={props => (
+      <AsyncRoute
+        props={props}
+        loadingPromise={
+          System.import('../containers/Signup/SignupContainer')
+        } />
+    )} />
+
   </Root>
 )
 

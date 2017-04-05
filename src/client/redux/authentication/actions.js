@@ -53,18 +53,20 @@ export const authEpic = (action$) => {
             }
           }
         )
-          .then(response => {
-            return response.json()
-              .then(res => {
-                if (!res.token) {
-                  return requestLoginError('Credentials are wrong')
-                }
-                finishAuthentication(res.token)
-                return requestLoginSuccess()
-              })
-              .catch(error => requestLoginError(error))
-          })
-          .catch(error => requestLoginError(error.message))
+        .then(response => {
+          return response.json()
+            .then(res => {
+              if (!res.token) {
+                return requestLoginError('Credentials are wrong')
+              }
+              finishAuthentication(res.token)
+              return requestLoginSuccess()
+            })
+            .catch((error) => {
+              return requestLoginError(error)
+            })
+        })
+        .catch(error => requestLoginError(error.message))
       })
   )
 }

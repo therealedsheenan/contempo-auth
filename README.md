@@ -33,4 +33,8 @@ You can checkout the [react-router v4](https://reacttraining.com/react-router/) 
 - run tests with `npm run test` or `npm run test:update`
 - run eslints with `npm run eslint`
 
+### Additional info
+This implements realtime data updates on component.
+Checkout the socket configuration files on the Server API and `HomeContainer.js`
+
 

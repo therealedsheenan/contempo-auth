@@ -10,5 +10,8 @@ exports[`test Link changes the class when hovered 1`] = `
     className="dmInQd">
     Welcome to contempo-auth!
   </p>
+  <h2>
+    List of users
+  </h2>
 </div>
 `;

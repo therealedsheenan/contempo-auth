@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react'
+import React, {PropTypes} from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Button, Form, FormGroup, Label, Container, Row, Col, Alert } from 'reactstrap'
 
-const Login = (props) => {
+const Signup = (props) => {
   return (
     <Container>
       <Row>
@@ -13,6 +13,10 @@ const Login = (props) => {
               <Field name='username' component='input' type='text' />
             </FormGroup>
             <FormGroup>
+              <Label htmlFor='userEmail'>Email: </Label>
+              <Field name='email' component='input' type='text' />
+            </FormGroup>
+            <FormGroup>
               <label htmlFor='password'>password: </label>
               <Field name='password' component='input' type='password' />
             </FormGroup>
@@ -20,19 +24,18 @@ const Login = (props) => {
           </Form>
         </Col>
       </Row>
-      {props.loginError && <Alert color='danger'>{props.loginError}</Alert>}
+      {props.success ? <Alert color='success'>User Successfully created.</Alert> : <Alert color='danger'>Sign up failed.</Alert>}
     </Container>
   )
 }
 
-Login.propTypes = {
-  requestLogin: PropTypes.func,
-  handleSubmit: PropTypes.func.isRequired,
-  loginError: PropTypes.string
+Signup.propTypes = {
+  handleSubmit: PropTypes.func,
+  success: PropTypes.bool
 }
 
-const LoginForm = reduxForm({
-  form: 'login'
-})(Login)
+const SignupForm = reduxForm({
+  form: 'signup'
+})(Signup)
 
-export default LoginForm
+export default SignupForm
