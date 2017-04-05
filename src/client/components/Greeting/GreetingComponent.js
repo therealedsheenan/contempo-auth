@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import {
   Title,
   SubTitle
@@ -7,16 +7,15 @@ import {
 import { ListGroup, ListGroupItem } from 'reactstrap'
 
 const GreetingComponent = (props) => {
-  console.log(props)
   return (
     <div className='Greeting'>
       <Title>Good {props.message}!</Title>
       <SubTitle>Welcome to contempo-auth!</SubTitle>
+      <h2>List of users</h2>
       {
         props.users.map(user => {
           return (
             <div key={user._id}>
-              <h2>List of users</h2>
               <ListGroup>
                 <ListGroupItem>
                   <strong>email: </strong>{user.email}
@@ -27,13 +26,13 @@ const GreetingComponent = (props) => {
           )
         })
       }
-
     </div>
   )
 }
 
 GreetingComponent.propTypes = {
-  message: React.PropTypes.string
+  message: PropTypes.string,
+  users: PropTypes.array
 }
 
 export default GreetingComponent

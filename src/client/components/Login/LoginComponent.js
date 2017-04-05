@@ -3,7 +3,6 @@ import { Field, reduxForm } from 'redux-form'
 import { Button, Form, FormGroup, Label, Container, Row, Col, Alert } from 'reactstrap'
 
 const Login = (props) => {
-  console.log(props)
   return (
     <Container>
       <Row>
