@@ -1,9 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import io from 'socket.io-client'
-
-const socket = io('http://localhost:3001')
+import { socketConnect } from '../../helpers/socketConnect'
 
 // redux
 import { requestGreeting } from '../../redux/greeting/actions'
@@ -29,7 +27,7 @@ const HomeContainer = React.createClass({
   },
   render () {
     // update users array when new user is created
-    socket.on('signup-success', (data) => {
+    socketConnect.on('signup-success', (data) => {
       this.props.requestUsers()
     })
     return (

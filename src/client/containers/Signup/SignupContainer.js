@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import io from 'socket.io-client'
-
-const socket = io('http://localhost:3001')
+// socket
+import { socketConnect } from '../../helpers/socketConnect'
 
 // dependencies
 import Signup from '../../components/Signup/SignupComponent'
@@ -17,7 +16,7 @@ const SignupContainer = React.createClass({
   handleSubmit (values) {
     if (values.username && values.password && values.email) {
       this.props.requestSignup(values.username, values.password, values.email)
-      socket.emit('signup', {
+      socketConnect.emit('signup', {
         username: values.username,
         password: values.password
       })
@@ -25,7 +24,7 @@ const SignupContainer = React.createClass({
   },
   componentWillReceiveProps (nextProps) {
     if (nextProps.success) {
-      socket.emit('signup-success', {
+      socketConnect.emit('signup-success', {
         success: true
       })
     }
