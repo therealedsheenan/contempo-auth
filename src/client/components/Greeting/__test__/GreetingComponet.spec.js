@@ -3,6 +3,6 @@ import renderer from 'react-test-renderer'
 import GreetingComponent from '../GreetingComponent'
 
 test('Link changes the class when hovered', () => {
-  const component = renderer.create(<GreetingComponent />).toJSON()
+  const component = renderer.create(<GreetingComponent users={[]} />).toJSON()
   expect(component).toMatchSnapshot()
 })
