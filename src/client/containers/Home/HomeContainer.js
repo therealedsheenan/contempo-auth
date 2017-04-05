@@ -1,9 +1,12 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+import io from 'socket.io-client'
+
+const socket = io('http://localhost:3001')
+
 // redux
 import { requestGreeting } from '../../redux/greeting/actions'
-import { getToken } from '../../redux/authentication/actions'
 import { requestUsers } from '../../redux/users/actions'
 
 // components
@@ -12,19 +15,23 @@ import GreetingComponent from '../../components/Greeting/GreetingComponent'
 const HomeContainer = React.createClass({
   propTypes: {
     requestGreeting: PropTypes.func.isRequired,
+    requestUsers: PropTypes.func.isRequired,
     greeting: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.object
-    ])
+    ]),
+    users: PropTypes.array
   },
   componentDidMount () {
     // TODO check if user is authenticated
     this.props.requestGreeting()
     this.props.requestUsers()
   },
-  componentWillMount () {
-  },
   render () {
+    // update users array when new user is created
+    socket.on('signup-success', (data) => {
+      this.props.requestUsers()
+    })
     return (
       <GreetingComponent
         message={this.props.greeting.content}
@@ -44,7 +51,6 @@ const mapStateToProps = ({greetingReducer, usersReducer}) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     requestGreeting: () => dispatch(requestGreeting()),
-    requestLogin: () => dispatch(getToken()),
     requestUsers: () => dispatch(requestUsers())
   }
 }
