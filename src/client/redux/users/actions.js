@@ -25,22 +25,22 @@ const getUsersSuccess = (payload) => {
 export const usersEpic = action$ =>
   action$.ofType(type.GET_USERS)
     .mergeMap(action =>
-       fetch(
-          `${API_URL}/${'users/'}`,
-          {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': getToken()
-            }
+      fetch(
+        `${API_URL}/${'users/'}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': getToken()
           }
-        )
-        .then((response) => {
-          return response.json()
-            .then(res => {
-              return getUsersSuccess(res)
-            })
-            .catch(error => getUsersError(error))
-        })
-        .catch(getUsersError)
+        }
+      )
+      .then((response) => {
+        return response.json()
+          .then(res => {
+            return getUsersSuccess(res)
+          })
+          .catch(error => getUsersError(error))
+      })
+      .catch(getUsersError)
     )

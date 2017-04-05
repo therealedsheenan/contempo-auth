@@ -34,7 +34,6 @@ const routes = () => (
         } />
     )} />
 
-
     <Route strict exact path='/signup' render={props => (
       <AsyncRoute
         props={props}

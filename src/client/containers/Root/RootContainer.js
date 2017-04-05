@@ -1,12 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import io from 'socket.io-client'
 
 import NavComponent from '../../components/Navigation/NavComponent'
 import { getToken } from '../../redux/authentication/utils'
 import { requestLoginSuccess, requestLogout } from '../../redux/authentication/actions'
-
-const socket = io('http://localhost:3001')
 
 // base css
 import 'styles/base.scss'
