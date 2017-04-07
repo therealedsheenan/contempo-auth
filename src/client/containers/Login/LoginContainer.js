@@ -49,14 +49,8 @@ const mapStateToProps = ({ authReducer }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    requestLogin: (username, password) => dispatch(requestLogin(username, password))
-  }
-}
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {requestLogin}
 )(LoginContainer)
 

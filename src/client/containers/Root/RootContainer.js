@@ -21,10 +21,6 @@ const Root = React.createClass({
       this.props.requestLoginSuccess(getToken())
     }
   },
-  checkToken () {
-    let token = this.props.getToken()
-    return token ? this.props.requestLoginSuccess(token) : false
-  },
   logout () {
     this.props.requestLogout()
   },
