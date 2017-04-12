@@ -18,7 +18,10 @@ const HomeContainer = React.createClass({
       PropTypes.string,
       PropTypes.object
     ]),
-    users: PropTypes.array
+    users: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
+    ])
   },
   componentDidMount () {
     // TODO check if user is authenticated

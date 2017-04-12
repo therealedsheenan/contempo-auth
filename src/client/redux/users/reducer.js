@@ -23,7 +23,7 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         fetching: false,
         error: '',
-        users: action.users
+        users: action.users.data ? action.users.data : []
       }
     default:
       return state

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import * as type from './types'
 import { API_URL } from '../../helpers/constants'
 
@@ -28,31 +29,26 @@ export const signupEpic = (action$) => {
   return (
     action$.ofType(type.SIGNUP_USER_REQUEST)
       .mergeMap(action => {
-        let username = action.username
-        let password = action.password
-        let email = action.email
-        let admin = false // hardcoded admin status
-        return fetch(
-          `${API_URL}/${'user/signup'}`,
-          {
-            method: 'POST',
-            body: JSON.stringify({username, password, email, admin}),
-            headers: {
-              'Content-Type': 'application/json'
-            }
+        let url = `${API_URL}/${'user/signup'}`
+        let props = {
+          method: 'POST',
+          data: {
+            username: action.username,
+            password: action.password,
+            email: action.email,
+            admin: false
+          },
+          headers: {
+            'Content-Type': 'application/json'
           }
-        )
+        }
+
+        return axios(url, props)
           .then(response => {
-            return response.json()
-              .then(res => {
-                if (!res.token) {
-                  return requestSignupError('Credentials are wrong')
-                }
-                return requestSignupSuccess()
-              })
-              .catch((error) => {
-                return requestSignupError(error)
-              })
+            if (response.data && response.data.token) {
+              return requestSignupSuccess()
+            }
+            return requestSignupError('Credentials are wrong')
           })
           .catch(error => requestSignupError(error.message))
       })
