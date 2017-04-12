@@ -1,6 +1,7 @@
 import * as type from './types'
 import { API_URL } from '../../helpers/constants'
 import { removeToken } from './utils'
+import axios from 'axios'
 
 export const requestLogin = (username, password) => {
   return {
@@ -43,30 +44,26 @@ export const authEpic = (action$) => {
       .mergeMap(action => {
         let username = action.username
         let password = action.password
-        return fetch(
-          `${API_URL}/${'user/signin'}`,
-          {
-            method: 'POST',
-            body: JSON.stringify({username, password}),
-            headers: {
-              'Content-Type': 'application/json'
-            }
+        let url = `${API_URL}/${'user/signin'}`
+        let props = {
+          method: 'POST',
+          data: {
+            username: username,
+            password: password
+          },
+          headers: {
+            'Content-Type': 'application/json'
           }
-        )
-        .then(response => {
-          return response.json()
-            .then(res => {
-              if (!res.token) {
-                return requestLoginError('Credentials are wrong')
-              }
-              finishAuthentication(res.token)
+        }
+        return axios(url, props)
+          .then(response => {
+            if (response.data && response.data.token) {
+              finishAuthentication(response.data.token)
               return requestLoginSuccess()
-            })
-            .catch((error) => {
-              return requestLoginError(error)
-            })
-        })
-        .catch(error => requestLoginError(error.message))
+            }
+            return requestLoginError('Credentials are wrong')
+          })
+          .catch(error => requestLoginError(error.message))
       })
   )
 }

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import * as type from './types'
 import { getToken } from '../authentication/utils'
 
@@ -22,25 +23,23 @@ const getUsersSuccess = (payload) => {
   }
 }
 
-export const usersEpic = action$ =>
-  action$.ofType(type.GET_USERS)
-    .mergeMap(action =>
-      fetch(
-        `${API_URL}/${'users/'}`,
-        {
+export const usersEpic = action$ => {
+  return (
+    action$.ofType(type.GET_USERS)
+      .mergeMap(action => {
+        let url = `${API_URL}/${'users/'}`
+        let props = {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': getToken()
           }
         }
-      )
-      .then((response) => {
-        return response.json()
-          .then(res => {
-            return getUsersSuccess(res)
+        return axios(url, props)
+          .then(response => {
+            return getUsersSuccess(response)
           })
-          .catch(error => getUsersError(error))
+          .catch(getUsersError)
       })
-      .catch(getUsersError)
-    )
+  )
+}

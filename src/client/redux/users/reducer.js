@@ -20,9 +20,10 @@ const usersReducer = (state = initialState, action) => {
       }
     case type.GET_USERS_SUCCESS:
       return {
+        ...state,
         fetching: false,
         error: '',
-        users: action.users
+        users: action.users.data ? action.users.data : []
       }
     default:
       return state
