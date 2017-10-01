@@ -5,9 +5,6 @@ import { createEpicMiddleware, combineEpics } from 'redux-observable'
 import { reducer as formReducer } from 'redux-form'
 
 // redux settings
-import greetingReducer from '../redux/greeting/reducer'
-import { greetingEpic } from '../redux/greeting/actions'
-
 import authReducer from '../redux/authentication/reducer'
 import { authEpic } from '../redux/authentication/actions'
 
@@ -18,7 +15,6 @@ import signupReducer from '../redux/signup/reducer'
 import { signupEpic } from '../redux/signup/actions'
 
 const combinedEpics = combineEpics(
-  greetingEpic,
   authEpic,
   usersEpic,
   signupEpic
@@ -27,7 +23,6 @@ const combinedEpics = combineEpics(
 const epicMiddleWare = createEpicMiddleware(combinedEpics)
 
 const reducers = {
-  greetingReducer,
   authReducer,
   usersReducer,
   signupReducer,

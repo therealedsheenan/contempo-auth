@@ -1,7 +1,6 @@
 import * as type from './types'
-import { API_URL } from '../../helpers/constants'
 import { removeToken } from './utils'
-import axios from 'axios'
+import api from '../../helpers/api'
 
 export const requestLogin = (username, password) => {
   return {
@@ -44,18 +43,7 @@ export const authEpic = (action$) => {
       .mergeMap(action => {
         let username = action.username
         let password = action.password
-        let url = `${API_URL}/${'user/signin'}`
-        let props = {
-          method: 'POST',
-          data: {
-            username: username,
-            password: password
-          },
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-        return axios(url, props)
+        return api.Auth.signIn({username, password})
           .then(response => {
             if (response.data && response.data.token) {
               finishAuthentication(response.data.token)

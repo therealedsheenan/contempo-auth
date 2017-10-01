@@ -2,8 +2,9 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import NavComponent from '../../components/Navigation/NavComponent'
-import { getToken } from '../../redux/authentication/utils'
+
 import { requestLoginSuccess, requestLogout } from '../../redux/authentication/actions'
+import { getToken } from '../../redux/authentication/utils'
 
 // base css
 import 'styles/base.scss'

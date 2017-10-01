@@ -15,11 +15,13 @@ const NavComponent = (props) => {
           <Link to='/style'>Styleguide</Link>
         </NavLink>
       </NavItem>
-      <NavItem>
-        <NavLink>
-          <Link to='/signup'>Signup</Link>
-        </NavLink>
-      </NavItem>
+      { !props.authentication.isAuthenticated &&
+        <NavItem>
+          <NavLink>
+            <Link to='/signup'>Signup</Link>
+          </NavLink>
+        </NavItem>
+      }
       { props.authentication.isAuthenticated &&
       <NavItem>
         <NavLink>

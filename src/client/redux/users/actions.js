@@ -1,9 +1,7 @@
-import axios from 'axios'
 import * as type from './types'
-import { getToken } from '../authentication/utils'
+import api from '../../helpers/api'
 
 import { Observable } from 'rxjs'
-import { API_URL } from '../../helpers/constants'
 
 export const requestUsers = () => {
   return {
@@ -26,20 +24,11 @@ const getUsersSuccess = (payload) => {
 export const usersEpic = action$ => {
   return (
     action$.ofType(type.GET_USERS)
-      .mergeMap(action => {
-        let url = `${API_URL}/${'users/'}`
-        let props = {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': getToken()
-          }
-        }
-        return axios(url, props)
-          .then(response => {
-            return getUsersSuccess(response)
-          })
-          .catch(getUsersError)
-      })
+      .mergeMap(action => api.Users.getInfo()
+        .then(response => {
+          return getUsersSuccess(response)
+        })
+        .catch(getUsersError)
+      )
   )
 }
