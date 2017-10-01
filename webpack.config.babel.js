@@ -39,7 +39,7 @@ module.exports = env => {
     devServer: {
       contentBase: PATHS.output,
       inline: true,
-      port: 8000,
+      port: 8080,
       historyApiFallback: true,
       proxy: {
         context: '/api',
